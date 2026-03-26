@@ -8,6 +8,7 @@ o.undofile = true -- By default gets stored in XDG_STATE_HOME/nvim/undo
 o.exrc = true
 o.updatetime = 100 -- Affects CursorHold aucmd and swapfile write threshold.
 o.completeopt = 'menuone,noselect,noinsert,preview'
+o.whichwrap = "b,s,[,]"
 o.mouse = 'a'
 o.clipboard = 'unnamed,unnamedplus'
 

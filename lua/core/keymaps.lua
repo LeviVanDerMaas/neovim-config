@@ -1,5 +1,12 @@
 local km = vim.keymap
 
+-- UP-DOWN KEYS TO NON-LINEWISE DIRECTIONALS
+-- Mainly useful when 'wrap' is set
+km.set("", "<Down>",  "gj")
+km.set("", "<Up>",    "gk")
+km.set("i", "<Down>", "<Cmd>norm! gj<CR>")
+km.set("i", "<Up>",   "<Cmd>norm! gk<CR>")
+
 -- BLACKHOLE REGISTER ACCESS WITH ALT
 km.set("v", "<M-p>", '"_p') -- Synonym for v_P
 km.set("", "<M-d>", '"_d')
