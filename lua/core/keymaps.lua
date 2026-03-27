@@ -14,6 +14,14 @@ km.set("", "<M-x>", '"_x')
 km.set("", "<M-c>", '"_c')
 km.set("", "<M-s>", '"_s')
 
+-- OVERRIDE cc TO USE BLACKHOLE IF NO NON-BLANK CHARS ARE AFFECTED
+-- Mainly useful to make use of "cc's" autoindent behaviour.
+km.set("n", "cc", function()
+  local lnum = vim.fn.line(".")
+  local lines = vim.fn.getline(lnum, lnum + (vim.v.count1 - 1))
+  return vim.fn.match(lines, [[\S]]) == -1 and '"_cc' or 'cc'
+end, { expr = true })
+
 
 
 
