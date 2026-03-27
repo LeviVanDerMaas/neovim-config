@@ -60,7 +60,7 @@ km.set("", "<leader>H",
 
 
 
--- TEXT OBJECTS:
+-- TEXT OBJECT:  All text in buffer
 km.set({"v", "o"}, "aa",
   function()
     vim.cmd [[
@@ -70,7 +70,6 @@ km.set({"v", "o"}, "aa",
   end,
   { silent = true, desc = "[a]ll" }
 )
-
 km.set({"v", "o"}, "ia",
   function ()
     vim.cmd [[
@@ -82,4 +81,44 @@ km.set({"v", "o"}, "ia",
     ]]
   end,
   { silent = true, desc = "[a]ll, trim blank lines" }
+)
+
+
+
+
+
+-- OPERATOR: Remove all blank characters at end of line
+function TrimOverLastMotion()
+  local curcol = vim.fn.virtcol(".", true)[1]
+  local motion_start = vim.api.nvim_buf_get_mark(0, "[")[1]
+  local motion_end = vim.api.nvim_buf_get_mark(0, "]")[1]
+  -- Handles edge case of same line motions on empty line
+  if motion_start > motion_end then
+    vim.api.nvim_buf_set_mark(0, "]", motion_start, 0, {})
+  end
+
+  -- This does the actual trimming on the motion's area.
+  -- Prefer using \+ over * atom here. Eventhough the effect of the substituion
+  -- is the same, with \+  this only matches on lines where there actually are
+  -- blank characters at the end, whereas with * this matches all lines. As a
+  -- result, the latter will cause the buffer's modified flag to be set and
+  -- this command to be added to the undo stack even if no actual changes are
+  -- made; the former does not have this issue.
+  vim.cmd [[silent keeppatterns '[,']s/\s\+$//ge]]
+
+  -- Move to the line where the motion started and according to 'startofline'
+  -- set the cursor's column. This mimics the behaviour of other operators,
+  -- whereas the substitution would move you only to the first non-blank of
+  -- the last line where the substitution pattern matched.
+  -- NOTE: In visual line-wise mode this behaves inconsistently depending on what end
+  -- the cursor is in visual mode, but this *is* consistent with several other operators.
+  vim.api.nvim_win_set_cursor(0, { motion_start, 0 })
+  vim.cmd ("norm! " .. (vim.o.startofline and "^" or (curcol .. "|")))
+end
+km.set({"n", "x"}, "gl",
+  function ()
+    vim.o.operatorfunc = "v:lua.TrimOverLastMotion"
+    return "g@"
+  end,
+  { expr = true, silent = true, desc = "Trim" }
 )
