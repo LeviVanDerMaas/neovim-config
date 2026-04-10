@@ -5,6 +5,7 @@
   heirline-nvim # Statusline utility API for generating format strings.
   guess-indent-nvim # Heurstically set local expandtab, tabstop, softtabstop, shiftfwidth
   which-key-nvim # Shows popups with available key bindings on short pause
+  smear-cursor-nvim # Highly customizable smooth cursor with smearing effect
   nvim-surround # Operator-based insertion and manipulation of pairs like (), "", etc.
   rainbow-delimiters-nvim # Adds rainbow coloring to pair-based delimiters.
   indent-blankline-nvim # Adds indentation guides, integrates with rainbow-delimiters
