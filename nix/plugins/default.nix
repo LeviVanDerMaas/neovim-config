@@ -3,6 +3,7 @@
   # QUALITY OF LIFE
   catppuccin-nvim # Theme; integrates with many plugins
   heirline-nvim # Statusline utility API for generating format strings.
+  specs-nvim # Highlights the cursor after doing jumps and swapping windows
   guess-indent-nvim # Heurstically set local expandtab, tabstop, softtabstop, shiftfwidth
   which-key-nvim # Shows popups with available key bindings on short pause
   nvim-surround # Operator-based insertion and manipulation of pairs like (), "", etc.

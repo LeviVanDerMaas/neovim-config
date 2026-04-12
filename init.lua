@@ -11,6 +11,7 @@ require "core.diagnostics"
 
 -- QUALITY OF LIFE
 require "plugins.heirline"
+require "plugins.specs"
 require "plugins.guess-indent"
 require "plugins.which-key"
 require "plugins.nvim-surround"
