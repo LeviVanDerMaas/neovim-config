@@ -4,16 +4,18 @@
 
   outputs = { self, nixpkgs, ... }:
     let
-      arch = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${arch};
-      lib = nixpkgs.lib;
+      system = "x86_64-linux";
+      pkgs = import nixpkgs {
+        inherit system;
+        config = { allowUnfree = true; };
+      };
 
       flakePkgs = import ./nix/packages.nix pkgs;
       inherit (flakePkgs) callFlakePackage;
     in
     {
-      packages.${arch} = flakePkgs;
-      devShells.${arch} = callFlakePackage ./nix/devshells.nix {};
+      packages.${system} = flakePkgs;
+      devShells.${system} = callFlakePackage ./nix/devshells.nix {};
       homeManagerModules = {
         levisNeovimConfig = import ./nix/hmModule.nix self;
         default = self.homeManagerModules.levisNeovimConfig;
