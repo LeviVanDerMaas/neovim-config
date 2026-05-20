@@ -3,10 +3,15 @@ local km = vim.keymap
 
 --{{{ MAP: <Up> and <Down> to gk and gj
 -- Mainly useful when 'wrap' is set
-km.set("", "<Down>",  "gj")
-km.set("", "<Up>",    "gk")
-km.set("i", "<Down>", "<Cmd>norm! gj<CR>")
-km.set("i", "<Up>",   "<Cmd>norm! gk<CR>")
+km.set({"", "i"}, "<Down>", "<Cmd>norm! gj<CR>")
+km.set({"", "i"}, "<Up>",   "<Cmd>norm! gk<CR>")
+--}}}
+
+--{{{ MAP: <Home> and <End> to _ and g_, <Shift> for original behaviour.
+km.set({"", "i"}, "<Home>", "<Cmd>norm! _<CR>")
+km.set({"", "i"}, "<End>",  "<Cmd>norm! g_<CR>")
+km.set({"", "i"}, "<S-Home>", "<Home>")
+km.set({"", "i"}, "<S-End>", "<End>")
 --}}}
 
 --{{{ MAP: ALT+operator as shortcut to blackhole register

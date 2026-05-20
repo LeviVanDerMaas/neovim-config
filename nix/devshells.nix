@@ -8,7 +8,7 @@
     ''
       export NVIM_DEV_CONFIG=$(git rev-parse --show-toplevel)
 
-      echo -e "\e[3;34m\
+      echo -en "\e[3;34m\
       Setting exported variable NVIM_DEV_CONFIG to directory's git repo
       root. Run 'nvimd' to invoke nvim with VIMINIT set to, by default, run
       \$NVIM_DEV_CONFIG/init.lua and with 'runtimepath' prefixed with
