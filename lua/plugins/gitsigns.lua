@@ -1,3 +1,9 @@
+-- Gitsigins already does this check by itself but will print
+-- error messages that you can't disable when it fails.
+if vim.fn.executable('git') == 0 then
+  return
+end
+
 require("gitsigns").setup {
   signs = {
     add = { text = "+" },
