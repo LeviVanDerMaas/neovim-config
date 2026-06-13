@@ -1,24 +1,34 @@
 -- LSPs themselves must be provided externally, this dir is just to configure
 -- and enable them. :h lsp-config for more info.
-
--- Call vim.lsp.enable to let LSPs auto attach to new buffers as configged.
--- Call AFTER setting any LSP-specific config.
--- vim.lsp.config("*", {}) -- Base config overriden even by lsp/<config.lua>
+--
+-- vim.lsp.config() sets custom configuration options; earlier on some options
+-- for a given lsp may have been set by `lsp/*.lua` files on the runtimepath,
+-- such as by the plugin nvim-lspconfig (we could technically add our own such files
+-- too in ~/.config/nvim/lsp, but if any plugins set them later on the rtp then our
+-- settings will be overriden by those of the plugins).
+-- vim.lsp.enable() can then be used to have lsps autostart on configured filetypes.
 
 -- To get project-specific lsp-configs, use an exrc file with vim.lsp.config
 -- (don't worry, this will still update the config after calling vim.lsp.enable)
 
-local enabled_lsps = { "lua_ls", "nixd", "clangd" }
-for _, v in ipairs(enabled_lsps) do
-  pcall(require, "plugins.lsp." .. v)
-  vim.lsp.enable(v)
+-- Load configs for lsps specified by the `LSPS` table from plugins.lsp.<table_key>
+-- and specify whether they should be enabled by default.
+local LSPS = {
+  lua_ls = true,
+  nixd = true,
+
+  clangd = false -- Unlikely to function in any decent way without compile database
+}
+for lsp, enable in pairs(LSPS) do
+  pcall(require, "plugins.lsp." .. lsp)
+  vim.lsp.enable(lsp, enable)
 end
 
 -- Config to run whenever an lsp attaches to a buffer.
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("plugins.lsp", { clear = true }),
   callback = function (event)
-    local client = vim.lsp.get_client_by_id(event.data.client_id)
+    -- local client = vim.lsp.get_client_by_id(event.data.client_id)
 
     local tsb = require "telescope.builtin"
     local lsp_km = function (keys, func, desc, mode)
