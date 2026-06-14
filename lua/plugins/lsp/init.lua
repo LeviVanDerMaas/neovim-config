@@ -43,12 +43,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
     lsp_km("grc", tsb.lsp_incoming_calls, "[G]oto [r]eference [c]allers")
     lsp_km("grC", tsb.lsp_outgoing_calls, "[G]oto [r]eference-[c]alled")
     lsp_km("grt", tsb.lsp_type_definitions, "[G]oto [r]eference [t]ype")
-    lsp_km("grT", vim.lsp.buf.typehierarchy, "[G]oto [r]eference [t]ype")
+    lsp_km("grT", function () vim.lsp.buf.typehierarchy("supertypes") end, "[G]oto [r]eference super[t]ype")
+    lsp_km("gr<C-t>", function () vim.lsp.buf.typehierarchy("subtypes") end, "[G]oto [r]eference sub[t]ype")
     lsp_km("gO", tsb.lsp_document_symbols, "[G]oto d[o]cument symbols")
     -- Compared to lsp_workspace_symbols, this one is non-blocking and updates query dynamically
     lsp_km("g<C-O>", tsb.lsp_dynamic_workspace_symbols, "[G]oto [w]orkspace symbols")
     lsp_km("grn", vim.lsp.buf.rename, "[G]lobally [r]e[n]ame")
     lsp_km("gra", vim.lsp.buf.code_action, "[G]et/[r]un code [a]ctions")
+    lsp_km("grf", vim.lsp.buf.format, "[G]o [r]un [f]ormatter", { "n", "v" })
 
     local function change_document_highlights()
       vim.lsp.buf.clear_references() -- Clear older ones
