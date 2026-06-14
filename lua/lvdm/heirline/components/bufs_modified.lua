@@ -50,7 +50,7 @@ end
 --   end
 -- })
 local num_modified_cache = 0
-local augroup = vim.api.nvim_create_augroup("plugins.heirline", { clear = false })
+local augroup = vim.api.nvim_create_augroup("lvdm.heirline", { clear = false })
 vim.api.nvim_create_autocmd("BufModifiedSet", {
   group = augroup,
   callback = function ()

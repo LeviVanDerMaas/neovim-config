@@ -1,4 +1,4 @@
-local blocks = require "plugins.heirline.components.blocks"
+local blocks = require "lvdm.heirline.components.blocks"
 
 
 return blocks.itemGroup({

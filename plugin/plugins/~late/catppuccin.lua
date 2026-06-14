@@ -1,3 +1,5 @@
+-- NOTE: Prefer loading this late due to some plugin interactions with highlights
+
 -- Theme has a lot of config settings, check 'em on gh:
 -- https://github.com/catppuccin/nvim If you want to change something about ui
 -- colors, chances are you can do it more easily and consistenly with this
