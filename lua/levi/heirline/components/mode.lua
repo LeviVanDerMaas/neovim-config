@@ -1,6 +1,6 @@
 local conditions = require "heirline.conditions"
-local blocks = require "lvdm.heirline.components.blocks"
-local colors = require "lvdm.heirline.colors"
+local blocks = require "levi.heirline.components.blocks"
+local colors = require "levi.heirline.colors"
 
 -- Maps values returned by `vim.fn.mode()` to a name. More specific modes
 -- (longer strings) fallback to more generic ones (prefix that is defined).

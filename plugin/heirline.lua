@@ -1,14 +1,14 @@
 local conditions = require "heirline.conditions"
 
-local blocks = require "lvdm.heirline.components.blocks"
-local Mode = require "lvdm.heirline.components.mode"
-local BufsModified = require "lvdm.heirline.components.bufs_modified"
-local Ruler = require "lvdm.heirline.components.ruler"
-local BufferProgress = require "lvdm.heirline.components.buffer_progress"
-local Diagnostics = require "lvdm.heirline.components.diagnostics"
-local GitSigns = require "lvdm.heirline.components.gitsigns"
-local fileFlags = require "lvdm.heirline.components.fileflags"
-local fileNames = require "lvdm.heirline.components.filenames"
+local blocks = require "levi.heirline.components.blocks"
+local Mode = require "levi.heirline.components.mode"
+local BufsModified = require "levi.heirline.components.bufs_modified"
+local Ruler = require "levi.heirline.components.ruler"
+local BufferProgress = require "levi.heirline.components.buffer_progress"
+local Diagnostics = require "levi.heirline.components.diagnostics"
+local GitSigns = require "levi.heirline.components.gitsigns"
+local fileFlags = require "levi.heirline.components.fileflags"
+local fileNames = require "levi.heirline.components.filenames"
 
 
 local ModeIndicator = {
@@ -89,7 +89,7 @@ local ConditionalStatusLine = {
 require("heirline").setup {
   opts = {},
   statusline =  ConditionalStatusLine,
-  colors = require "lvdm.heirline.colors",
+  colors = require "levi.heirline.colors",
 }
 
 -- NOTE: There is only one heirline instance that is shared by multiple statuslines: all vim statuslines

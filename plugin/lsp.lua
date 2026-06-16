@@ -20,7 +20,7 @@ local LSPS = {
   clangd = false -- Unlikely to function in any decent way without compile database
 }
 for lsp, enable in pairs(LSPS) do
-  pcall(require, "lvdm.lspconfigs." .. lsp)
+  pcall(require, "levi.lspconfigs." .. lsp)
   vim.lsp.enable(lsp, enable)
 end
 

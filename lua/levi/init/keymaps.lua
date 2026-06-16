@@ -1,6 +1,10 @@
 -- vim: set foldmethod=marker:
 local km = vim.keymap
 
+-- Set these very early as keymaps expand <leader> upon definition
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
 --{{{ MAP: <Up> and <Down> to gk and gj
 -- Mainly useful when 'wrap' is set
 km.set({"", "i"}, "<Down>", "<Cmd>norm! gj<CR>")
