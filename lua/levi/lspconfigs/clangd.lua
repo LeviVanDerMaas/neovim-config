@@ -5,8 +5,6 @@ vim.lsp.config("clangd", {
     -- This is because, for Neovim, Clangd uses the "comment" LSP
     -- token to signal such inactive branches (and does not use it otherwise).
     -- https://clangd.llvm.org/features#kinds
-    vim.api.nvim_set_hl(0, "@lsp.type.comment.cpp", {
-      dim = true
-    })
+    vim.api.nvim_set_hl(0, "@lsp.type.comment.cpp", { dim = true })
   end
 })
