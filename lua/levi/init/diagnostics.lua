@@ -9,6 +9,7 @@ vim.diagnostic.config({
   },
   severity_sort = true
 })
+vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { dim = true })
 
 -- Will be 0 if not open
 local function getQfWinId()
