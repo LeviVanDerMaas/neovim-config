@@ -17,19 +17,6 @@ vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { dim = true })
 
 local augroup = vim.api.nvim_create_augroup("core.diagnostics", { clear = false })
 
--- Get quickfix title and  winid. winid will be 0 if not open
--- local function tgetQfIds()
---   local ids = vim.fn.getqflist({ id = 0, winid = true })
---   return ids.id, ids.winid
--- end
---
--- -- Get loclist id and winid. winid will 0 if not open
--- -- `win` should be the window for which to check the corresponding loclist
--- local function tgetLocListIds(win)
---   local ids = vim.fn.getloclist(win, { id = 0, winid = true }).winid
---   return ids.id, ids.winid
--- end
-
 -- Return whether the Diagnostics Quickfix list is open and its winid.
 local function diagnosticsQfListOpen()
   -- qfl winid will be 0 if window is closed, title is most recent even when closed
@@ -55,7 +42,7 @@ vim.api.nvim_create_autocmd({ "DiagnosticChanged" }, {
   end
 })
 -- Auto-update open "Diagnostics" loclists for all windows holding a buffer that fired
--- "DiagnosticChangeD". when the window corresponding to the loclist. 
+-- "DiagnosticChangeD". when the window corresponding to the loclist.
 -- Note that splitting a window with an open loclists copies the loclist to the
 -- new window, then the "ownership" of the loclist-window transfers to the new
 -- window resulting from the split.
@@ -70,6 +57,10 @@ vim.api.nvim_create_autocmd({ "DiagnosticChanged" }, {
     end
   end
 })
+
+
+
+
 
 -- Diagnostic quickfix window binds
 local function toggleLocListDiagnostics()
