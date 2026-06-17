@@ -1,32 +1,34 @@
 vim.loader.enable() -- Enables module caching between sessions, including (ft)plugin/
 
--- CORE
-require "core.options"
-require "core.keymaps"
-require "core.diagnostics"
+require "core.saferequire" {
+  -- CORE
+  "core.options",
+  "core.keymaps",
+  "core.diagnostics",
 
--- QUALITY OF LIFE
-require "plugins.heirline"
-require "plugins.guess-indent"
-require "plugins.which-key"
-require "plugins.nvim-surround"
-require "plugins.indent-blankline"
-require "plugins.neotree"
+  -- QUALITY OF LIFE
+  "plugins.heirline",
+  "plugins.guess-indent",
+  "plugins.which-key",
+  "plugins.nvim-surround",
+  "plugins.indent-blankline",
+  "plugins.neotree",
 
--- GIT INTEGRATION
-require "plugins.gitsigns"
+  -- GIT INTEGRATION
+  "plugins.gitsigns",
 
--- TELESCOPE
-require "plugins.telescope"
+  -- TELESCOPE
+  "plugins.telescope",
 
--- TREESITTER
-require "plugins.treesitter"
+  -- TREESITTER
+  "plugins.treesitter",
 
--- LSP
-require "plugins.lsp"
-require "plugins.tiny-inline-diagnostic"
-require "plugins.blink-cmp"
-require "plugins.fidget"
+  -- LSP
+  "plugins.lsp",
+  "plugins.tiny-inline-diagnostic",
+  "plugins.blink-cmp",
+  "plugins.fidget",
 
--- COLORSCHEME (prefer loading this late)
-require "plugins.catppuccin"
+  -- COLORSCHEME (prefer loading this late)
+  "plugins.catppuccin"
+}
