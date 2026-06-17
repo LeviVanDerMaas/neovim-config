@@ -1,5 +1,5 @@
 local conditions = require "heirline.conditions"
-local blocks = require "levi.heirline.components.blocks"
+local blocks = require "plugins.heirline.components.blocks"
 
 local function inInsertOrReplaceMode()
   local mode = vim.api.nvim_get_mode().mode:sub(1, 1)
@@ -10,7 +10,7 @@ end
 -- contents tends to be faster than gitsigns updating the dict.
 vim.api.nvim_create_autocmd("User", {
   pattern = "GitSignsUpdate",
-  group = vim.api.nvim_create_augroup("levi.heirline", { clear = false }),
+  group = vim.api.nvim_create_augroup("plugins.heirline", { clear = false }),
   callback = function()
     -- Don't update state while in insert or replace mode because it is annoying
     if not inInsertOrReplaceMode() then

@@ -1,4 +1,4 @@
-local blocks = require "levi.heirline.components.blocks"
+local blocks = require "plugins.heirline.components.blocks"
 
 
 return blocks.itemGroup({

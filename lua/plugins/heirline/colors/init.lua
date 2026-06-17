@@ -1,5 +1,5 @@
 local utils = require "heirline.utils"
-local blocks = require "levi.heirline.components.blocks"
+local blocks = require "plugins.heirline.components.blocks"
 
 -- Module that initally sets up heirline colors, as well as provides
 -- some color-related utility for use by components
@@ -34,7 +34,7 @@ function M.setup_colors()
 
   local colorscheme =  vim.g.colors_name
   local has_mapping, colorscheme_colors =
-    pcall(require, "levi.heirline.colors.colorscheme_colors." .. colorscheme)
+    pcall(require, "plugins.heirline.colors.colorscheme_colors." .. colorscheme)
   if has_mapping then
     return vim.tbl_extend("keep", colorscheme_colors, default_colors)
   end
@@ -43,7 +43,7 @@ end
 
 -- Automatically rerun color setup on colorscheme switch
 vim.api.nvim_create_autocmd("ColorScheme", {
-  group = vim.api.nvim_create_augroup("levi.heirline", { clear = false }),
+  group = vim.api.nvim_create_augroup("plugins.heirline", { clear = false }),
   callback = function ()
     utils.on_colorscheme(M.setup_colors)
   end

@@ -1,6 +1,32 @@
-vim.loader.enable() -- Enable inter-session caching of all `require`s, including plugin/ and ftplugin/
+vim.loader.enable() -- Enables module caching between sessions, including (ft)plugin/
 
--- In init.lua only run config which does not depend on external plugins or programs
-require "levi.init.options"
-require "levi.init.keymaps"
-require "levi.init.diagnostics"
+-- CORE
+require "core.options"
+require "core.keymaps"
+require "core.diagnostics"
+
+-- QUALITY OF LIFE
+require "plugins.heirline"
+require "plugins.guess-indent"
+require "plugins.which-key"
+require "plugins.nvim-surround"
+require "plugins.indent-blankline"
+require "plugins.neotree"
+
+-- GIT INTEGRATION
+require "plugins.gitsigns"
+
+-- TELESCOPE
+require "plugins.telescope"
+
+-- TREESITTER
+require "plugins.treesitter"
+
+-- LSP
+require "plugins.lsp"
+require "plugins.tiny-inline-diagnostic"
+require "plugins.blink-cmp"
+require "plugins.fidget"
+
+-- COLORSCHEME (prefer loading this late)
+require "plugins.catppuccin"

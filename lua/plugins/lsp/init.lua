@@ -16,11 +16,10 @@
 local LSPS = {
   lua_ls = true,
   nixd = true,
-
   clangd = false -- Unlikely to function in any decent way without compile database
 }
 for lsp, enable in pairs(LSPS) do
-  pcall(require, "levi.lspconfigs." .. lsp)
+  pcall(require, "plugins.lsp." .. lsp)
   vim.lsp.enable(lsp, enable)
 end
 

@@ -7,12 +7,6 @@ and Nix for managing plugins and their dependencies. However, Nix itself is
 any other ordinary distro and should work fine in non-Nix environments as long
 as the necessary plugins and dependencies are provided.
 
-Core Neovim configuration that does not depend on any external plugins or
-software is ran via `init.lua`, while any configuration specific to or
-dependent on plugins is ran via per-plugin files in the `(ft)plugin/` dir. This
-ensures core configuration runs before any `exrc` files or plugins are sourced
-and prevents one bad plugin stopping other configuration from running.
-
 ## Nix Integration
 The flake's default package wraps Neovim with the full Lua configuration as
 well as any plugins and other dependencies, and isolates it from any XDG

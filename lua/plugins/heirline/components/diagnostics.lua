@@ -1,5 +1,5 @@
 local conditions = require "heirline.conditions"
-local blocks = require "levi.heirline.components.blocks"
+local blocks = require "plugins.heirline.components.blocks"
 local severity = vim.diagnostic.severity
 
 return {
