@@ -9,6 +9,7 @@ require "core.saferequire" {
   -- QUALITY OF LIFE
   "plugins.heirline",
   "plugins.guess-indent",
+  "plugins.specs",
   "plugins.which-key",
   "plugins.nvim-surround",
   "plugins.indent-blankline",
