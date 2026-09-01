@@ -11,6 +11,17 @@ km.set({"", "i"}, "<Down>", "<Cmd>norm! gj<CR>")
 km.set({"", "i"}, "<Up>",   "<Cmd>norm! gk<CR>")
 --}}}
 
+--{{{ MAP: ALT-h/j/k/l to CTRL-W+h/j/k/l; eases moving between Vim windows
+km.set({"n", "v"}, "<A-h>", "<C-w>h")
+km.set({"n", "v"}, "<A-Left>", "<C-w><Left>")
+km.set({"n", "v"}, "<A-j>", "<C-w>j")
+km.set({"n", "v"}, "<A-Down>", "<C-w><Down>")
+km.set({"n", "v"}, "<A-k>", "<C-w>k")
+km.set({"n", "v"}, "<A-Up>", "<C-w><Up>")
+km.set({"n", "v"}, "<A-l>", "<C-w>l")
+km.set({"n", "v"}, "<A-Right>", "<C-w><Right>")
+--}}}
+
 --{{{ MAP: <Home> and <End> to _ and g_, <Shift> for original behaviour.
 km.set({"", "i"}, "<Home>", "<Cmd>norm! _<CR>")
 km.set({"", "i"}, "<End>",  "<Cmd>norm! g_<CR>")
@@ -40,8 +51,8 @@ km.set("n", "cc", function()
 end, { expr = true })
 --}}}
 
---{{{ MAP: ALT+j mimics J but keeps individual paragraphs separated
--- "gw" essentially does this if textwidth is at least as wide as the widest line
+--{{{ MAP: CTRL+j mimics J but keeps individual paragraphs separated
+-- Implemented with hack: "gw" essentially does this if textwidth is at least as wide as the widest line
 local function mapRHSwithMaxTextwidth(keys)
   local tw = vim.bo.textwidth
   return table.concat {
@@ -51,11 +62,11 @@ local function mapRHSwithMaxTextwidth(keys)
   }
 end
 
-km.set("n", "<M-j>", function()
+km.set("n", "<C-j>", function()
   return mapRHSwithMaxTextwidth(vim.v.count1 .. "gwap")
 end, { expr = true, desc = "Intra-join paragraphs" })
 
-km.set("v", "<M-j>", function()
+km.set("v", "<C-j>", function()
   return mapRHSwithMaxTextwidth("gw")
 end, { expr = true, desc = "Intra-join paragraphs" })
 --}}}
