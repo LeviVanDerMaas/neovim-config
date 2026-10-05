@@ -1,10 +1,10 @@
 # Manual entry for building a neovim config: https://nixos.org/manual/nixpkgs/stable/#neovim
 # NOTE: Try to avoid passing attributes to wrapNeovimUnstable that it does not specify,
 # as this has caused weird breakage issues in the past.
-
-{ pkgs, lib }:
-
 {
+  pkgs,
+  lib,
+
   baseNeovimPackage ? pkgs.neovim-unwrapped,
   # Given packages will be prefixed to the nvim package's PATH via symlinkJoin.
   extraPackages ? [],

@@ -1,6 +1,10 @@
-{ pkgs, lib, ... }:
+# The nixpkgs instance within which neovim is built
+# All plugins and other dependencies come from this instance.
+pkgs:
 
 let
+  lib = pkgs.lib;
+
   plugins = import ./plugins pkgs;
   init = builtins.readFile "${configDir}/init.lua";
   configDir = lib.cleanSourceWith {
@@ -18,7 +22,7 @@ let
   };
 
   callFlakePackage = lib.callPackageWith (pkgs // { inherit flakePkgs; });
-  mkNvim = callFlakePackage ./mkNvim.nix {};
+  mkNvim = callFlakePackage ./mkNvim.nix;
   flakePkgs = {
     inherit callFlakePackage mkNvim configDir;
     default = flakePkgs.full;

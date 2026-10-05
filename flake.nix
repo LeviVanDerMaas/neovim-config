@@ -17,8 +17,8 @@
       packages.${system} = flakePkgs;
       devShells.${system} = callFlakePackage ./nix/devshells.nix {};
       homeManagerModules = {
-        levisNeovimConfig = import ./nix/hmModule.nix self;
-        default = self.homeManagerModules.levisNeovimConfig;
+        leviNeovimConfig = import ./nix/hmModule.nix self;
+        default = self.homeManagerModules.leviNeovimConfig;
       };
     };
 }
