@@ -7,8 +7,8 @@ vim.g.maplocalleader = " "
 
 --{{{ MAP: <Up> and <Down> to gk and gj
 -- Mainly useful when 'wrap' is set
-km.set({"", "i"}, "<Down>", "<Cmd>norm! gj<CR>")
-km.set({"", "i"}, "<Up>",   "<Cmd>norm! gk<CR>")
+km.set({"", "i"}, "<Down>", function() vim.cmd("norm! " .. vim.v.count1 .. "gj") end)
+km.set({"", "i"}, "<Up>",   function() vim.cmd("norm! " .. vim.v.count1 .. "gk") end)
 --}}}
 
 --{{{ MAP: ALT-h/j/k/l to CTRL-W+h/j/k/l; eases moving between Vim windows
