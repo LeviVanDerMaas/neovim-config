@@ -7,18 +7,39 @@ let
 
   plugins = import ./plugins pkgs;
   init = builtins.readFile "${configDir}/init.lua";
-  configDir = lib.cleanSourceWith {
-    name = "neovim-config";
-    src = lib.cleanSource ../.;
-    filter = p: t: !(lib.elem (baseNameOf p) [
-      ".gitignore"
-      ".direnv"
-      ".envrc"
-      ".nvim.lua"
-      "nix"
-      "flake.nix"
-      "flake.lock"
-    ]);
+
+  # All files and directories searched for user-level config according to nvim 0.12.5 `:h startup`
+  configLocations = [
+     # Files searched for user-level config according to nvim 0.12.5 `:h startup`.
+    ../init.lua
+    ../init.vim
+
+     # Directories searched for user-level config according to nvim 0.12.5 `:h startup` and `:h `'runtimepath'` .
+    ../filetype.lua
+    ../autoload
+    ../colors
+    ../compiler
+    ../doc
+    ../ftplugin
+    ../indent
+    ../keymap
+    ../lang
+    ../lsp
+    ../lua
+    ../menu.vim
+    ../pack
+    ../parser
+    ../plugin
+    ../queries
+    ../rplugin
+    ../spell
+    ../syntax
+    ../tutor
+  ];
+
+  configDir = lib.fileset.toSource {
+    root = ./..;
+    fileset = lib.fileset.unions (map lib.fileset.maybeMissing configLocations);
   };
 
   callFlakePackage = lib.callPackageWith (pkgs // { inherit flakePkgs; });
