@@ -8,10 +8,11 @@ any other ordinary distro and should work fine in non-Nix environments as long
 as the necessary plugins and dependencies are provided.
 
 ## Nix Integration
-The flake's default package wraps Neovim with the full Lua configuration as
-well as any plugins and other dependencies, and isolates it from any XDG
-configuration directories (but **not** other XDG directories). With Nix
-Installed, run it using:
+The flake's default package wraps Neovim with the full Lua configuration as well
+as any plugins and other dependencies, and isolates it from the default XDG
+directories by instead reading from and writing to XDG subdirectories named
+`levi_nvim`[^1].
+With Nix installed, run it using:
 ```shell
 nix run github:LeviVanDerMaas/neovim-config
 ```
@@ -23,13 +24,14 @@ Packages for my Neovim configuration are built using `nix/mkNvim.nix`; the
 flake's `packages` consist of my Neovim config built with different parameters
 (and some utility functions), and are all located in `nix/packages.nix`.
 
-### Home-Manager Module
-The flake also exposes a default Home-Manager module that can be used to install
-the configuration. Compared to the flake's default package, this wraps Neovim
-only with plugins and their dependencies and instead installs the Lua
-configuration to `$XDG_CONFIG_HOME/nvim`. Note that the package must explicitly
-be enabled via its `.enable` option, and that it may conflict with options from
-Home-Manager's `programs.neovim` module if that module is also enabled.
+### Home-Manager Module The flake also exposes a default Home-Manager module
+that can be used to install the configuration in a more "traditional" manner.
+Compared to the flake's default package, this wraps Neovim only with plugins and
+their dependencies, installs the Lua configuration to `$XDG_CONFIG_HOME/nvim`
+and does not otherwise isolate neovim from any of the regular XDG dirs. Note
+that the module must explicitly be enabled via its `.enable` option, and that
+it may conflict with options from Home-Manager's `programs.neovim` module if
+that module is also enabled.
 
 ### Plugin management
 Plugins (and any of their dependencies) are specified in
@@ -44,10 +46,18 @@ After entering the devshell with:
 nix develop github:LeviVanDerMaas/neovim-config
 ```
 you can run `nvimd` to start an instance of Neovim that is packaged with all
-plugins and dependencies as specified by the Nix configuration and isolated from
-any XDG config dirs, where `runtimepath` has been prefixed with a path to the
-top level of this repo. If auto-detection of the repo's top-level fails, you can
-specify the path to use in the environment variable `NVIM_DEV_CONFIG`.
+plugins and dependencies as specified by the Nix configuration and isolated[^1]
+from any of the default XDG dirs, where `runtimepath` has been prefixed with a
+path to the top level of this repo. If auto-detection of the repo's top-level
+fails, you can specify the path to use in the environment variable
+`NVIM_DEV_CONFIG`.
 
 This is particularly useful as you will still have access to your currently
 installed Neovim configuration by running `nvim` while modifying this repo.
+
+
+
+[^1]: Note that this does not make it actually stateless. Unfortunately, that is
+    very hard to accomplish in any manner where it is still able to interact
+    with regular XDG locations, which is useful for things like plugins that
+    access your git config.

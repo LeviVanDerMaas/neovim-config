@@ -16,7 +16,7 @@
   plugins ? [],
   init ? null,
   configDir ? null,
-  isolateFromXDGConfig ? true
+  isolateFromXDG ? true
 }:
 let
   # Make the plugin spec suitable for passing to wrapNeovimUnstable
@@ -49,13 +49,10 @@ let
 
       "--add-flags"
       "${if configDir == null then "" else "--cmd 'set rtp^=${configDir}'"}"
-    ] ++ lib.optionals isolateFromXDGConfig [
+    ] ++ lib.optionals isolateFromXDG [
       "--set"
-      "XDG_CONFIG_HOME"
-      (toString ./. + "/FAKE_NONEXISTENT_XDG_CONFIGDIR")
-
-      "--unset"
-      "XDG_CONFIG_DIRS"
+      "NVIM_APPNAME"
+      "levi_nvim"
     ];
   };
 

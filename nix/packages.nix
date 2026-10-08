@@ -48,9 +48,9 @@ let
     inherit callFlakePackage mkNvim configDir;
     default = flakePkgs.full;
     full = callFlakePackage mkNvim { inherit init configDir plugins; };
-    full_noIsolateConfig = flakePkgs.full.override { isolateFromXDGConfig = false; };
+    full_noIsolateConfig = flakePkgs.full.override { isolateFromXDG = false; };
     pluginsOnly = callFlakePackage mkNvim { inherit plugins; };
-    pluginsOnly_noIsolateConfig = flakePkgs.pluginsOnly.override { isolateFromXDGConfig = false; };
+    pluginsOnly_noIsolateConfig = flakePkgs.pluginsOnly.override { isolateFromXDG = false; };
   };
 in
 flakePkgs
