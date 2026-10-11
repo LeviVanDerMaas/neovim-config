@@ -12,6 +12,9 @@ km.set("n", "<Leader><Leader>", tsb.find_files, { desc = "Search files" })
 km.set("n", "<Leader>f", tsb.find_files, { desc = "[F]in[d] files" })
 km.set("n", "<Leader>gf", tsb.git_files, { desc = "[F]ind [g]it files" })
 km.set("n", "<Leader>rg", tsb.live_grep, { desc = "Find by [r]ip[g]rep" })
+km.set("n", "<Leader>r<S-g>", function()
+  tsb.live_grep { additional_args = { "--multiline" } }
+end, { desc = "Find by [r]ip[g]rep; multiline" })
 km.set({"n", "v"}, "<Leader>rs", tsb.grep_string, { desc = "[R]ipgrep [s]tring/[s]election" })
 
 -- Vim pickers
