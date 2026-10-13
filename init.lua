@@ -6,6 +6,15 @@ require "core.saferequire" {
   "core.keymaps",
   "core.diagnostics",
 
+  -- TREESITTER
+  "plugins.treesitter",
+
+  -- LSP
+  "plugins.lsp",
+  "plugins.tiny-inline-diagnostic",
+  "plugins.blink-cmp",
+  "plugins.fidget",
+
   -- QUALITY OF LIFE
   "plugins.heirline",
   "plugins.guess-indent",
@@ -15,20 +24,11 @@ require "core.saferequire" {
   "plugins.indent-blankline",
   "plugins.neotree",
 
-  -- GIT INTEGRATION
-  "plugins.gitsigns",
-
   -- TELESCOPE
   "plugins.telescope",
 
-  -- TREESITTER
-  "plugins.treesitter",
-
-  -- LSP
-  "plugins.lsp",
-  "plugins.tiny-inline-diagnostic",
-  "plugins.blink-cmp",
-  "plugins.fidget",
+  -- GIT INTEGRATION
+  "plugins.gitsigns",
 
   -- COLORSCHEME (prefer loading this late)
   "plugins.catppuccin"
