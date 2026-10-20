@@ -5,6 +5,11 @@ local km = vim.keymap
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+--{{{ MAP: <Leader>w and <Leader>W to :w and :wa
+km.set("n", "<Leader>w", "<Cmd>:w<CR>")
+km.set("n", "<Leader>W", "<Cmd>:wa<CR>")
+--}}}
+
 --{{{ MAP: <Up> and <Down> to gk and gj
 -- Mainly useful when 'wrap' is set
 km.set({"", "i"}, "<Down>", function() vim.cmd("norm! " .. vim.v.count1 .. "gj") end)
