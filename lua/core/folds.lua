@@ -14,7 +14,7 @@ vim.wo.foldlevel = unfold_all
 
 local augroup = vim.api.nvim_create_augroup("core.folds", { clear = false })
 vim.api.nvim_create_autocmd("BufWinEnter", {
-  desc = "The first time a buffer is displayed, set its `foldlevel` based on its `foldmethod`.",
+  desc = "The first time a buffer is displayed, set settings like `foldlevel` based on its `foldmethod`.",
   -- Why use BufWinEnter instead of OptionSet for this? Because OptionSet is bugged and won't
   -- trigger during filetype detection (e.g. whens et during FileType event), which is one of
   -- the main moments where a value like this would be set dynamically: https://github.com/neovim/neovim/issues/33781
@@ -24,7 +24,11 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
       return
     end
     vim.b.been_displayed = true
-    -- Yes this will override foldlevel once if that was set via the modeline. Don't care.
-    vim.wo[0][0].foldlevel = defaultFoldLevelForMethod[vim.wo[0][0].foldmethod]
+
+    local method = vim.wo[0][0].foldmethod
+    vim.wo[0][0].foldlevel = defaultFoldLevelForMethod[method] -- This overrides modeline foldlevel ONCE
+    if method == "expr" or method == "syntax" then
+      vim.wo[0][0].foldtext = ""
+    end
   end
 })
