@@ -5,6 +5,7 @@ require "core.saferequire" {
   "core.options",
   "core.keymaps",
   "core.diagnostics",
+  "core.folds",
 
   -- TREESITTER
   "plugins.treesitter",
