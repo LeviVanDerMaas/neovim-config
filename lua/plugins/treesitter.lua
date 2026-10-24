@@ -11,6 +11,7 @@ local M = {
 }
 
 vim.api.nvim_create_autocmd("FileType", {
+  nested = true, -- Must be nested to be able to trigger any OptionSet autocmds
   callback = function (args)
     local lang = vim.treesitter.language.get_lang(args.match) or args.match
     local config = M.ft_features[args.match] or {}
