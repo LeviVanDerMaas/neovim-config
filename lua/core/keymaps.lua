@@ -16,6 +16,39 @@ km.set({"", "i"}, "<Down>", function() vim.cmd("norm! " .. vim.v.count1 .. "gj")
 km.set({"", "i"}, "<Up>",   function() vim.cmd("norm! " .. vim.v.count1 .. "gk") end)
 --}}}
 
+--{{{ MAP: ENTER and SHIFT-ENTER insert lines above and below in normal and insert mode
+km.set("n", "<S-CR>", "]<Space>", { remap = true }) -- Comes from default mapping
+km.set("n", "<C-CR>", "[<Space>", { remap = true }) -- Comes from default mapping
+km.set("i", "<S-CR>", "<CR><Cmd>normal! k$<CR><Right>")
+-- Opposite of SHIFT ENTER. This puts everything before the cursor on the line above.
+-- It tries to be smart about indentation and whitespace between characters.
+km.set("i", "<C-CR>", function()
+  local curpos = vim.api.nvim_win_get_cursor(0)
+  local curline = curpos[1]
+  if curline <= 1 then return end -- No line above us.
+  local curcol = curpos[2]
+  local prevline = curline - 1
+  local previndent = vim.fn.indent(prevline)
+
+  local curtext = vim.fn.getline(curline)
+  local trimmed_prevtext = vim.trim(vim.fn.getline(prevline))
+  local prev_add_space = trimmed_prevtext ~= "" and " " or ""
+
+  local prevnew, _ = vim.text.indent(previndent, trimmed_prevtext .. prev_add_space .. vim.trim(curtext:sub(1, curcol)))
+  local len_prevnew = prevnew:len()
+
+  -- Instead of rewriting both lines with the desired content seperately, make the first line
+  -- a joined version of the desired content for both lines and clear the second line.
+  -- Then, at the pointt where the content for both lines is joined, insert a newline via normal!.
+  -- Now Vim automatically handles the indentation logic instead of us having to compute it manually.
+  -- (Vim does not expose the routine that decides between all indent options or the smartindent logic).
+  local curnew, _ = curtext:sub(curcol + 1)
+  vim.api.nvim_buf_set_lines(0, prevline - 1, curline, true, { prevnew .. curnew })
+  vim.api.nvim_win_set_cursor(0, { prevline, len_prevnew })
+  vim.cmd [[ silent exe "normal! i\n\e_" ]]
+end)
+--}}}
+
 --{{{ MAP: ALT-h/j/k/l to CTRL-W+h/j/k/l; eases moving between Vim windows
 km.set({"n", "v"}, "<A-h>", "<C-w>h")
 km.set({"n", "v"}, "<A-Left>", "<C-w><Left>")
