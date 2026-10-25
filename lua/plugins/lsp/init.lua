@@ -27,7 +27,16 @@ end
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("plugins.lsp", { clear = true }),
   callback = function (event)
-    -- local client = vim.lsp.get_client_by_id(event.data.client_id)
+    local client = vim.lsp.get_client_by_id(event.data.client_id)
+
+    -- Use lsp foldexpr if available: this is not set by default unlike lsps formatexpr.
+    -- LspAttach runs after FileType (which is the one other place to set this), so Lsp
+    -- has priority if available.
+    ---@diagnostic disable-next-line: need-check-nil
+    if client:supports_method("textDocument/foldingRange") then
+      vim.wo[0][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
+      vim.wo[0][0].foldmethod = 'expr'
+    end
 
     local tsb = require "telescope.builtin"
     local lsp_km = function (keys, func, desc, mode)
