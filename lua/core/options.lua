@@ -3,6 +3,7 @@ local o = vim.opt
 -- Data
 o.swapfile = false
 o.undofile = true -- By default gets stored in XDG_STATE_HOME/nvim/undo
+o.shada:remove("!") -- This is one of the dumbest things that is turned on by default
 
 -- Control and I/O Behaviour
 o.exrc = true
@@ -26,7 +27,6 @@ o.ignorecase = true
 o.smartcase = true
 
 -- UI
-o.termguicolors = true
 o.number = true
 o.relativenumber = true
 o.list = true
