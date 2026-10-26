@@ -27,7 +27,7 @@
         fi
 
         ${lib.getExe flakePkgs.pluginsOnly} \
-          --cmd "set rtp^=$NVIM_DEV_CONFIG" "$@"
+          --cmd "set rtp^=$NVIM_DEV_CONFIG,$NVIM_DEV_CONFIG/after" "$@"
       '')
     ];
   };

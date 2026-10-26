@@ -15,6 +15,7 @@ let
     ../init.vim
 
      # Directories searched for user-level config according to nvim 0.12.5 `:h startup` and `:h `'runtimepath'` .
+    ../after # Don't forget about this one!
     ../filetype.lua
     ../autoload
     ../colors
