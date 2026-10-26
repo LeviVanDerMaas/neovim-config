@@ -5,7 +5,7 @@ local blocks = require "plugins.heirline.components.blocks"
 -- some color-related utility for use by components
 local M = {}
 
-function M.setup_colors()
+function M.colors_for_current_scheme()
   -- With NONE we fallback to whatever highlights parent components set, or
   -- what the colorscheme itself has set (e.g. hi-StatusLine) Can't use an
   -- __index metatable because heirline only copies values.
@@ -32,7 +32,7 @@ function M.setup_colors()
     buffer_progress = "NONE"
   }
 
-  local colorscheme =  vim.g.colors_name
+  local colorscheme =  vim.g.colors_name or ""
   local has_mapping, colorscheme_colors =
     pcall(require, "plugins.heirline.colors.colorscheme_colors." .. colorscheme)
   if has_mapping then
@@ -45,7 +45,7 @@ end
 vim.api.nvim_create_autocmd("ColorScheme", {
   group = vim.api.nvim_create_augroup("plugins.heirline", { clear = false }),
   callback = function ()
-    utils.on_colorscheme(M.setup_colors)
+    utils.on_colorscheme(M.colors_for_current_scheme)
   end
 })
 

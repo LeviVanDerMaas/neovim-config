@@ -87,9 +87,10 @@ local ConditionalStatusLine = {
 }
 
 require("heirline").setup {
-  opts = {},
+  opts = {
+    colors = require "plugins.heirline.colors".colors_for_current_scheme(),
+  },
   statusline =  ConditionalStatusLine,
-  colors = require "plugins.heirline.colors",
 }
 
 -- NOTE: There is only one heirline instance that is shared by multiple statuslines: all vim statuslines
