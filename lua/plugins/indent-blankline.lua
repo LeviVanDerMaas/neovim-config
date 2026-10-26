@@ -38,6 +38,7 @@ vim.g.rainbow_delimiters = {
 }
 
 require("ibl").setup {
+  enabled = not vim.startswith(vim.env.TERM, "linux"), -- Default off in TTY
   scope = {
     -- Sets up colored indentation guides
     highlight = highlight
