@@ -48,10 +48,12 @@ let
   flakePkgs = {
     inherit callFlakePackage mkNvim configDir;
     default = flakePkgs.full;
+    # Full: Custom neovim package, wrapped with all plugin packages, all custom config and any runtime dependencies.
     full = callFlakePackage mkNvim { inherit init configDir plugins; };
-    full_noIsolateConfig = flakePkgs.full.override { isolateFromXDG = false; };
+    # PluginsOnly: Custom neovim package, wrapped with all plugin packages and their runtime dependencies.
     pluginsOnly = callFlakePackage mkNvim { inherit plugins; };
-    pluginsOnly_noIsolateConfig = flakePkgs.pluginsOnly.override { isolateFromXDG = false; };
+    # Bare: Custom neovim package (that is, only package-level settings, like `.withPyhon3` are included).
+    bare = callFlakePackage mkNvim {};
   };
 in
 flakePkgs

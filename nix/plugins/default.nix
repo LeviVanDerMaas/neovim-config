@@ -6,7 +6,7 @@
   # LSP
   {
     plugin = nvim-lspconfig; # (Semi-)official LSP configurations for nvim. Does not provide lsps itself.
-    dependsOn = [
+    extraDeps = [
       lazydev-nvim # Configure LuaLS for editing neovim config
     ];
     extraPackages = [
@@ -31,7 +31,7 @@
   indent-blankline-nvim # Adds indentation guides, integrates with rainbow-delimiters
   {
     plugin = neo-tree-nvim; # Extensive filetree plugin for vim
-    dependsOn = [
+    extraDeps = [
       nui-nvim # Required dep
       plenary-nvim # Required dep
       nvim-web-devicons # Optional for file icons
@@ -42,7 +42,7 @@
   # TELESCOPE
   {
     plugin = telescope-nvim;
-    dependsOn = [
+    extraDeps = [
       plenary-nvim # Required dep
       telescope-fzf-native-nvim # Recommended for better sorting performance
       nvim-web-devicons # (Optional) nerd font icons

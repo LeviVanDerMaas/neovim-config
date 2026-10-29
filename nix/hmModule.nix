@@ -34,7 +34,7 @@ in
           flake.packages.${pkgs.stdenv.hostPlatform.system};
     in
     lib.mkIf cfg.enable {
-      home.packages = [ packages.pluginsOnly_noIsolateConfig ];
+      home.packages = [ packages.pluginsOnly ];
       xdg.configFile.nvim.source = lib.mkDefault packages.configDir;
     };
 }
