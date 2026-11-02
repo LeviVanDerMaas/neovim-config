@@ -1,3 +1,8 @@
+-- If you are to believe :h 'rtp', it would be suffcient to isolate the default runtimepath
+-- by just setting it to $VIMRUNTIME. However, the default value value for runtimepath
+-- sets more than just the value for $VIMRUNTIME, such as local <binpath>/../lib/nvim.
+-- You can see in upstream src/nvim/runtime.c
+-- So instead, manually remove all user dirs from the runtimepath.
 local stdpath = vim.fn.stdpath
 local function siteDir(dir)
   return dir .. "/site"
