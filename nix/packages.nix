@@ -1,6 +1,6 @@
 # The nixpkgs instance within which neovim is built
 # All plugins and other dependencies come from this instance.
-self: pkgs:
+{ self, pkgs }:
 
 let
   lib = pkgs.lib;

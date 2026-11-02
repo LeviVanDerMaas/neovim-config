@@ -10,7 +10,7 @@
         config = { allowUnfree = true; };
       };
 
-      flakePkgs = import ./nix/packages.nix self pkgs;
+      flakePkgs = import ./nix/packages.nix { inherit self pkgs; };
       inherit (flakePkgs) callFlakePackage;
     in
     {

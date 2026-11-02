@@ -1,4 +1,4 @@
-flake:
+self:
 
 { pkgs, lib, config, ... }:
 let
@@ -7,12 +7,11 @@ in
 {
   options.programs.leviNeovimConfig = {
     enable = lib.mkEnableOption ''
-      Configures Home-Manager options with defaults to install and manage my full Neovim
-      config. Compared to installing the "full" package directly, this provides a slighlty more
-      organic set-up. The installed package only wraps Neovim with plugins and their
-      dependencies, and instead installs all config files under $XDG_CONFIG_HOME/nvim and does
-      not use a special VIMINIT wrapper (so nvim just runs $XDG_CONFIG_HOME/nvim/init.lua on
-      start).
+      Configures Home-Manager options to install and manage my full Neovim config. Compared to
+      installing this flake's `full` package directly, this provides a a natural setup. The
+      installed neovim package is a minimal wrapper that only manages package-level settings;
+      all user-level config files are installed under $XDG_CONFIG_HOME/nvim, and a "pack" with
+      all plugins is made available under $XDG_DATA_HOME/nvim/site.
     '';
     useHMPkgs = lib.mkEnableOption ''
       Builds the custom Neovim package using Home-Manager's `pkgs` instance instead of the
@@ -27,14 +26,24 @@ in
 
   config =
     let
-      packages =
-        if cfg.useHMPkgs then 
-          import ./packages.nix pkgs
-        else 
-          flake.packages.${pkgs.stdenv.hostPlatform.system};
+      inherit (flakePackages) bare full configDir;
+      flakePackages =
+        if cfg.useHMPkgs then
+          import ./packages.nix { inherit self pkgs; }
+        else
+          self.packages.${pkgs.stdenv.hostPlatform.system};
     in
     lib.mkIf cfg.enable {
-      home.packages = [ packages.pluginsOnly ];
-      xdg.configFile.nvim.source = lib.mkDefault packages.configDir;
+      # Install a neovim instance with all package level options that this flake
+      # sets, but not wrapped with any other customization, plugins or packages.
+      home.packages = [ bare ];
+        
+      # Now populate .config/nvim with this flake's generated configDir and take
+      # the init.lua file from the full package. Similarly, take the plugin pack
+      # from the full neovim package and populate .local/share/nvim/site/pack with it.
+      xdg.configFile.nvim.source = configDir.override {
+        withInitLua = pkgs.writeText "nvim-init.lua" full.luaRcContent;
+      };
+      xdg.dataFile."nvim/site/pack".source = "${pkgs.neovimUtils.packDir full.packpathDirs}/pack";
     };
 }

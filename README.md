@@ -24,13 +24,13 @@ flake's `packages` consist of my Neovim config built with different parameters
 
 ### Home-Manager Module
 The flake also exposes a default Home-Manager module that can be used to install
-the configuration in a more "traditional" manner. Compared to the flake's
-default package, this wraps Neovim only with plugins and their dependencies,
-installs the Lua configuration to `$XDG_CONFIG_HOME/nvim` and does not otherwise
-isolate neovim from any of the regular XDG dirs. Note that the module must
-explicitly be enabled via its `.enable` option, and that it may conflict with
-options from Home-Manager's `programs.neovim` module if that module is also
-enabled.
+the configuration in a much more traditional manner. Compared to the flake's
+default package, the installed package is a very minimal wrapper around Neovim
+that manages only package-level settings, with all user config installed under
+`$XDG_CONFIG_HOME/nvim` and plugins installed under a pack in
+`$XDG_DATA_HOME/nvim/site/pack`. Note that the module must explicitly be enabled
+via its `.enable` option, and that it may conflict with options from
+Home-Manager's `programs.neovim` module if that module is also enabled.
 
 ### Plugin management
 Plugins (and any of their dependencies) are specified in
