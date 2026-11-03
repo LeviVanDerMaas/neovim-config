@@ -36,7 +36,8 @@ in
     lib.mkIf cfg.enable {
       # Install a neovim instance with all package level options that this flake
       # sets, but not wrapped with any other customization, plugins or packages.
-      home.packages = [ bare ];
+      # Steal then runtime dependencies from the full package
+      home.packages = [ (bare.override { extraPackages = full.extraPackages; }) ];
         
       # Now populate .config/nvim with this flake's generated configDir and take
       # the init.lua file from the full package. Similarly, take the plugin pack
