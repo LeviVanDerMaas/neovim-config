@@ -12,7 +12,7 @@ require("neo-tree").setup {
   popup_border_style = "rounded",
   -- These apply to all source types: use "soure_name" instead of "window" for type-specific settings
   window = {
-    position = "right",
+    position = "left",
     insert_as = "sibling",
     mappings = {
       ---@diagnostic disable-next-line: assign-type-mismatch
