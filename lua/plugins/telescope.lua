@@ -28,12 +28,14 @@ km.set("n", "<Leader>sh", tsb.search_history, { desc = "List [s]earch [h]istory"
 km.set("c", "<C-h>", tsb.command_history, { desc = "List [c]ommand [h]istory" })
 km.set("c", "<M-h>", tsb.commands, { desc = "List [c]ommand [h]istory" })
 
+-- Diagnostic pickers
+km.set("n", "<Leader>d", function() tsb.diagnostics { bufnr = 0 } end, { desc = "Buffer [d]iagnostics" })
+km.set("n", "<Leader>D", function() tsb.diagnostics { sort_by = "severity" } end, { desc = "Workspace [d]iagnostics" })
+
 -- Quickfix pickers
-km.set("n", "<Leader>q", function() tsb.diagnostics { bufnr = 0 } end, { desc = "Open buffer diagnostic [q]uickfix list" })
-km.set("n", "<Leader>Q", function() tsb.diagnostics { sort_by = "severity" } end, { desc = "Open workspace diagnostic [q]uickfix list" })
-km.set("n", "<Leader>l", tsb.loclist, { desc = "Show [l]ocal list" })
-km.set("n", "<Leader><C-q>", tsb.quickfix, { desc = "Show [q]uickfix list" })
-km.set("n", "<Leader><M-q>", tsb.quickfixhistory, { desc = "Show [q]uickfix list history" })
+km.set("n", "<Leader><C-q>", tsb.loclist, { desc = "Show [l]ocal list" })
+km.set("n", "<Leader><M-q>", tsb.quickfix, { desc = "Show [q]uickfix list" })
+km.set("n", "<Leader><C-M-q>", tsb.quickfixhistory, { desc = "Show [q]uickfix list history" })
 
 -- Git pickers
 km.set("n", "<Leader>gc", tsb.git_commits, { desc = "List [g]it [c]ommits" })
