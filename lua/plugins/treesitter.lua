@@ -1,11 +1,11 @@
 local M = {
-  -- A table of filetypes, where each key-value pair describes what treesitter
-  -- features to use for that filetype. If a table is assigned to a filetype,
+  -- NOTE: these area read during filetype detection and will not apply if set afterward.
+  -- A table of languages names, where each key-value pair describes what treesitter
+  -- features to use for that language. If a table is assigned to a language,
   -- reads boolean keys `highlighting`, `indentation` and `folding` to configure
   -- usage individually. Otherwise, treated as a bool that enables all features or none.
   -- Except where intenrally set by this module, all features for all languages default to true.
-  -- NOTE: these area read during filetype detection and will not apply if set afterward.
-  ft_features = {
+  lang_features = {
     markdown = { indentation = false }
   }
 }
@@ -14,7 +14,7 @@ vim.api.nvim_create_autocmd("FileType", {
   nested = true, -- Must be nested to be able to trigger any OptionSet autocmds
   callback = function (args)
     local lang = vim.treesitter.language.get_lang(args.match) or args.match
-    local config = M.ft_features[args.match] or {}
+    local config = M.lang_features[lang] or {}
     if vim.treesitter.language.add(lang) then
       -- Enable treesitter-based highlighting
       if config.highlighting ~= false then
