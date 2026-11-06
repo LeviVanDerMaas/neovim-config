@@ -56,4 +56,7 @@
   # GIT INTEGRATION
   vim-fugitive # Git interface for Vim (repo-level)
   gitsigns-nvim # Deep buffer-level integration for Git
+
+  # LATEX INTEGRATION
+  vimtex
 ]

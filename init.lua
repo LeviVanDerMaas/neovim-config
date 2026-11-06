@@ -31,6 +31,9 @@ require "core.saferequire" {
   -- GIT INTEGRATION
   "plugins.gitsigns",
 
+  -- LATEX INTEGRATION,
+  "plugins.vimtex",
+
   -- COLORSCHEME (prefer loading this late)
   "plugins.catppuccin"
 }
