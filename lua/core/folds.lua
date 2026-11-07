@@ -1,3 +1,7 @@
+local M = {
+  default_foldmethod = "manual"
+}
+
 local UNFOLD_ALL = 0x7FFFFFFF
 local defaultFoldLevelForMethod = {
   marker = 0,
@@ -64,3 +68,6 @@ vim.keymap.set({"n", "v"}, "zm", function()
     vim.cmd [[ normal! zm ]]
   end
 end)
+
+
+return M

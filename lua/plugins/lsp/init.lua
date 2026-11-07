@@ -29,11 +29,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
   callback = function (event)
     local client = vim.lsp.get_client_by_id(event.data.client_id)
 
-    -- Use lsp foldexpr if available: this is not set by default unlike lsps formatexpr.
+    -- Use lsp foldexpr if available: this is not set by default unlike lsps' formatexpr.
     -- LspAttach runs after FileType (which is the one other place to set this), so Lsp
     -- has priority if available.
-    ---@diagnostic disable-next-line: need-check-nil
-    if client:supports_method("textDocument/foldingRange") then
+    local cur_foldmethod = vim.wo[0][0].foldmethod
+    if client:supports_method("textDocument/foldingRange") ---@diagnostic disable-line: need-check-nil
+      and (cur_foldmethod == "expr" or cur_foldmethod == require("core.folds").default_foldmethod)
+    then
       vim.wo[0][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
       vim.wo[0][0].foldmethod = 'expr'
     end
