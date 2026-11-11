@@ -68,7 +68,9 @@ local function toggleLocListDiagnostics()
   if open then
     vim.api.nvim_win_close(lclwinid, false)
   elseif #vim.diagnostic.get(vim.api.nvim_get_current_buf()) > 0 then
+    local prev_win = vim.api.nvim_get_current_win()
     vim.diagnostic.setloclist({ title = "Diagnostics", open = true })
+    vim.api.nvim_set_current_win(prev_win)
   else
     vim.notify("0 diagnostics for this buffer.")
   end
@@ -78,7 +80,9 @@ local function toggleLQfListDiagnostics()
   if open then
     vim.api.nvim_win_close(qfwinid, false)
   elseif #vim.diagnostic.get() > 0 then
+    local prev_win = vim.api.nvim_get_current_win()
     vim.diagnostic.setqflist({ title = "Diagnostics", open = true })
+    vim.api.nvim_set_current_win(prev_win)
   else
     vim.notify("0 diagnostics for this workspace.")
   end
