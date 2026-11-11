@@ -21,9 +21,7 @@ vim.api.nvim_create_autocmd("User", {
   pattern = "VimtexEventInitPost",
   callback = function()
     local compiler_method = vim.g.vimtex_compiler_method
-    if type(compiler_method) == "function" then
-      compiler_method = compiler_method()
-    end
+    if type(compiler_method) == "function" then compiler_method = compiler_method() end
 
     if vim.fn.executable(compiler_method) == 0 then
       vim.schedule(function()
@@ -59,7 +57,6 @@ vim.api.nvim_create_autocmd("User", {
     end
   end
 })
-
 -- Integrate our custom diagnostics with the tiny-inline-diagnostic.nvim plugin
 -- tiny-inline-diagnostic.nvim by default only activates on LspAttach.
 -- This cam be overriden, but only on event-level, not pattern-level, so no User events.
@@ -71,4 +68,37 @@ vim.api.nvim_create_autocmd("User", {
   callback = function()
     vim.api.nvim_exec_autocmds("LspAttach", { group = "TinyInlineDiagnosticAutocmds" })
   end
+})
+
+
+-- Integrate Vimtex compilation with fidget.nvim
+local fidget_handle = nil
+vim.api.nvim_create_autocmd("User", {
+  desc = "Add a fidget.nvim progress spinner while compiling with VimTeX",
+  pattern = { "VimtexEventCompileStarted", "VimtexEventCompiling" },
+  group = augroup,
+  callback = function()
+    if fidget_handle then return end
+
+    local compiler_method = vim.g.vimtex_compiler_method
+    if type(compiler_method) == "function" then compiler_method = compiler_method() end
+    fidget_handle = require("fidget.progress").handle.create({
+      title = compiler_method,
+      message = "Compiling...",
+      lsp_client = { name = "VimTeX" }
+    })
+  end,
+})
+vim.api.nvim_create_autocmd("User", {
+  desc = "Finish fidget.nvim progress spinner after compiling with VimTeX",
+  pattern = { "VimtexEventCompileSuccess", "VimtexEventCompileFailed", "VimtexEventCompileStopped" },
+  group = augroup,
+  callback = function(ev)
+    if fidget_handle then
+      local mes = ev.match == "VimtexEventCompileFailed" and "✗ Compilation Error(s)!" or "✓ Done!"
+      fidget_handle:report({ message = mes })
+      fidget_handle:finish()
+      fidget_handle = nil
+    end
+  end,
 })
