@@ -3,13 +3,19 @@ require("blink.cmp").setup {
     -- Default sources to enable, can be a function for dynamics.
     default = {
       -- Builtin completion sources.
-      "lazydev", "lsp", "snippets", "buffer", "path",
+      "lsp", "snippets", "buffer", "path",
+      -- External
+      "lazydev", "vimtex"
     },
     providers = {
       lazydev = {
         name = "LazyDev",
         module = "lazydev.integrations.blink",
         score_offset = 100 -- Makes lazydev completions higher prio
+      },
+      vimtex = {
+        name = "vimtex",
+        module = "blink.compat.source"
       }
     }
   },

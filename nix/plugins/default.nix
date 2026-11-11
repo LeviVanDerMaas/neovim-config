@@ -16,7 +16,12 @@
       nixd
     ];
   }
-  blink-cmp # Comprehensive, batteries-included, neovim completion engine
+  {
+    plugin = blink-cmp; # Comprehensive, batteries-included, neovim completion engine
+    extraDeps = [
+      blink-compat # Compatibility layer for nvim-cmp sources
+    ];
+  }
   tiny-inline-diagnostic-nvim # Very neat inline diagnostics plugin
   fidget-nvim # Adds corner-window with LSP (and optionally for other) notifications
 
@@ -59,4 +64,5 @@
 
   # LATEX INTEGRATION
   vimtex
+  cmp-vimtex # nvim-cmp source over vimtex
 ]
