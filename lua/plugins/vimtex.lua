@@ -6,7 +6,8 @@ vim.g.vimtex_format_enabled = 1
 
 -- :h vimtex-view-okular. inverse search for okular is setup as explained there
 vim.g.vimtex_view_general_viewer = "okular"
-vim.g.vimtex_view_general_options = [[--unique file:@pdf\#src:@line@tex]]
+vim.g.vimtex_view_general_options =
+  [[--editor-cmd "nvim --headless -c \"VimtexInverseSearch %l '%f'\"" --unique file:@pdf\#src:@line@tex]]
 
 -- We want vimtex to handle highlighting for us instead
 require("plugins.treesitter").lang_features.latex = { highlighting = false }
