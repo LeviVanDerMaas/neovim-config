@@ -65,4 +65,7 @@
   # LATEX INTEGRATION
   vimtex
   cmp-vimtex # nvim-cmp source over vimtex
+
+  # ZOXIDE INTEGRATION
+  zoxide-vim
 ]
