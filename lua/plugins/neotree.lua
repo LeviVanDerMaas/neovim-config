@@ -10,6 +10,11 @@ require("neo-tree").setup {
   follow_current_file = true;
   close_if_last_window = true,
   popup_border_style = "rounded",
+
+  filesystem = {
+    hijack_netrw_behavior = "disabled"
+  },
+
   -- These apply to all source types: use "soure_name" instead of "window" for type-specific settings
   window = {
     position = "left",

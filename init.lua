@@ -23,6 +23,7 @@ require "core.saferequire" {
   "plugins.which-key",
   "plugins.nvim-surround",
   "plugins.indent-blankline",
+  "plugins.mini-files",
   "plugins.neotree",
 
   -- TELESCOPE

@@ -34,6 +34,7 @@
   nvim-surround # Operator-based insertion and manipulation of pairs like (), "", etc.
   rainbow-delimiters-nvim # Adds rainbow coloring to pair-based delimiters.
   indent-blankline-nvim # Adds indentation guides, integrates with rainbow-delimiters
+  mini-files # File system navigator and manipulator
   {
     plugin = neo-tree-nvim; # Extensive filetree plugin for vim
     extraDeps = [
