@@ -52,7 +52,7 @@ let
   # Make a derivation that holds all extra packages specified by the plugin spec.
   pluginExtraPackages = lib.concatMap (p: p.extraPackages or [] ++ p.runtimeDeps or []) plugins;
   allExtraPackages = lib.unique (extraPackages ++ pluginExtraPackages);
-  extraPackagesDrv = pkgs.symlinkJoin {
+  extraPackagesDrv = pkgs.buildEnv {
     name = "extra-neovim-packages";
     paths = allExtraPackages;
   };
