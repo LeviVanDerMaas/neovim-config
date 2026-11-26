@@ -1,6 +1,6 @@
 vim.loader.enable() -- Enables module caching between sessions, including (ft)plugin/
 
-require "core.saferequire" {
+require "core.util.saferequire" {
   -- CORE
   "core.options",
   "core.keymaps",
