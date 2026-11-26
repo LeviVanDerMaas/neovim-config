@@ -34,7 +34,7 @@ vim.api.nvim_create_autocmd("User", {
 vim.keymap.set("n", "<Leader>e", function()
   if not MF.close() then
     local path = vim.api.nvim_buf_get_name(0)
-    if vim.b.buftype ~= "" or vim.fn.filereadable(path) == 0 then
+    if vim.bo.buftype ~= "" or vim.fn.filereadable(path) == 0 then
       path = vim.fn.getcwd()
     end
     MF.open(path)
