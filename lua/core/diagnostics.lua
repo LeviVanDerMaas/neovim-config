@@ -88,4 +88,4 @@ local function toggleLQfListDiagnostics()
   end
 end
 vim.keymap.set("n", "<C-q>", toggleLocListDiagnostics, { desc = "Open buffer diagnostic [q]uickfix window" })
-vim.keymap.set("n", "<M-q>", toggleLQfListDiagnostics, { desc = "Open workspace diagnostic [q]uickfix window" })
+vim.keymap.set("n", "<M-C-q>", toggleLQfListDiagnostics, { desc = "Open workspace diagnostic [q]uickfix window" })

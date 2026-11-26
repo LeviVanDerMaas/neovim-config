@@ -127,6 +127,13 @@ km.set("", "<leader>H", function ()
 end, { desc = 'Toggle "hlsearch" option' })
 --}}}
 
+--{{{ MAP: ALT+q repeats the last used macro
+vim.keymap.set('n', '<M-q>', function()
+  local reg = vim.fn.reg_recorded()
+  return reg == '' and '' or ('@' .. reg)
+end, { expr = true })
+--}}}
+
 --{{{ TEXT OBJECT: all text in buffer (inner trims blank lines but preserves indent)
 km.set({"v", "o"}, "aa", function()
   vim.cmd [[
